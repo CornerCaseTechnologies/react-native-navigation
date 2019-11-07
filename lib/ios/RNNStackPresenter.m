@@ -23,7 +23,7 @@
 	[super applyOptions:options];
 	RNNStackController* stack = self.boundViewController;
 	RNNNavigationOptions * withDefault = [options withDefault:[self defaultOptions]];
-	
+		
 	self.interactivePopGestureDelegate = [InteractivePopGestureDelegate new];
 	self.interactivePopGestureDelegate.navigationController = stack;
 	self.interactivePopGestureDelegate.originalDelegate = stack.interactivePopGestureRecognizer.delegate;

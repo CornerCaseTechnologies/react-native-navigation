@@ -10,12 +10,12 @@
 	self.bottomTabs = [[RNNElementTransitionOptions alloc] initWithDict:dict[@"bottomTabs"]];
 	self.enable = [BoolParser parse:dict key:@"enabled"];
 	self.waitForRender = [BoolParser parse:dict key:@"waitForRender"];
-
+	self.animationDirection = [TextParser parse:dict key:@"animationDirection"];
 	return self;
 }
 
 - (BOOL)hasCustomAnimation {
-	return (self.topBar.hasAnimation || self.content.hasAnimation || self.bottomTabs.hasAnimation);
+	return (self.topBar.hasAnimation || self.content.hasAnimation || self.bottomTabs.hasAnimation || self.animationDirection.hasValue );
 }
 
 - (double)maxDuration {
