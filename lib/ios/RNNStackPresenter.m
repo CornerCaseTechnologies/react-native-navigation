@@ -23,12 +23,13 @@
 	[super applyOptions:options];
 	RNNStackController* stack = self.boundViewController;
 	RNNNavigationOptions * withDefault = [options withDefault:[self defaultOptions]];
-		
+	
 	self.interactivePopGestureDelegate = [InteractivePopGestureDelegate new];
 	self.interactivePopGestureDelegate.navigationController = stack;
 	self.interactivePopGestureDelegate.originalDelegate = stack.interactivePopGestureRecognizer.delegate;
 	stack.interactivePopGestureRecognizer.delegate = self.interactivePopGestureDelegate;
-
+	
+	[stack setDirection:[withDefault.layout.direction getWithDefaultValue:@"ltr"]];
 	[stack setInteractivePopGestureEnabled:[withDefault.popGesture getWithDefaultValue:YES]];
 	[stack setRootBackgroundImage:[withDefault.rootBackgroundImage getWithDefaultValue:nil]];
 	[stack setNavigationBarTestId:[withDefault.topBar.testID getWithDefaultValue:nil]];

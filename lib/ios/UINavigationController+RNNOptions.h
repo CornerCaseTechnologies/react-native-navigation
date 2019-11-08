@@ -30,4 +30,6 @@
 
 - (void)setBackButtonColor:(UIColor *)color;
 
+- (void)setDirection:(NSString *) direction;
+
 @end
