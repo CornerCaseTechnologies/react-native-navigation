@@ -9,6 +9,7 @@
 
 @property (nonatomic, strong) Bool* enable;
 @property (nonatomic, strong) Bool* waitForRender;
+@property (nonatomic, strong) Text* animationDirection;
 
 - (BOOL)hasCustomAnimation;
 - (double)maxDuration;

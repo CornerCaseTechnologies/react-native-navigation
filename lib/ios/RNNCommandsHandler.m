@@ -206,7 +206,18 @@ static NSString* const setDefaultOptions	= @"setDefaultOptions";
 		[vcs removeObject:vc];
 		[nvc setViewControllers:vcs animated:[vc.resolveOptions.animations.pop.enable getWithDefaultValue:YES]];
 	}
-	
+	CATransition* transition = [CATransition animation];
+	if(vc.resolveOptions.animations.pop.animationDirection.hasValue) {
+		transition.type = kCATransitionMoveIn;
+		transition.duration = 0.33;
+		transition.subtype = kCATransitionFromLeft;
+		if([vc.resolveOptions.animations.pop.animationDirection.get isEqualToString:@"right"]) {
+			transition.subtype = kCATransitionFromRight;
+
+		}
+		transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault];
+		[nvc.view.layer addAnimation:transition forKey:kCATransition];
+	}
 	[_stackManager pop:vc animated:[vc.resolveOptions.animations.pop.enable getWithDefaultValue:YES] completion:^{
 		[_eventEmitter sendOnNavigationCommandCompletion:pop commandId:commandId params:@{@"componentId": componentId}];
 		completion();

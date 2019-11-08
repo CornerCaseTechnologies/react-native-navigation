@@ -103,4 +103,10 @@ const NSInteger BLUR_TOPBAR_TAG = 78264802;
 	self.navigationBar.clipsToBounds = clipsToBounds;
 }
 
+- (void)setDirection:(NSString *) direction {
+	if([direction isEqualToString:@"rtl"]) {
+		self.view.semanticContentAttribute = UISemanticContentAttributeForceRightToLeft;
+	}
+}
+
 @end

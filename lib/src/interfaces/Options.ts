@@ -820,6 +820,12 @@ export interface ViewAnimationOptions extends ScreenAnimationOptions {
  */
 export interface StackAnimationOptions {
   /**
+   * experimantal attempt at 
+   * Overiding default animation direction
+   */
+   animationDirection?: "right" | "left",
+
+  /**
    * Wait for the View to render before start animation
    */
   waitForRender?: boolean;

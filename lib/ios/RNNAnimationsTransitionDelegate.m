@@ -24,7 +24,7 @@
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
 	UIViewController* toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
 	UIViewController* fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-	
+
 	[CATransaction begin];
 	[CATransaction setCompletionBlock:^{
 		[transitionContext completeTransition:![transitionContext transitionWasCancelled]];

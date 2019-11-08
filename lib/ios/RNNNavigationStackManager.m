@@ -1,7 +1,8 @@
 #import "RNNNavigationStackManager.h"
 #import "RNNErrorHandler.h"
 #import <React/RCTI18nUtil.h>
-
+#import "RNNOptions.h"
+#import "RNNComponentViewController.h"
 typedef void (^RNNAnimationBlock)(void);
 
 @implementation RNNNavigationStackManager
@@ -22,8 +23,22 @@ typedef void (^RNNAnimationBlock)(void);
 	} else {
 		nvc.delegate = nil;
 	}
-	
+	RNNNavigationOptions * options = [(RNNComponentViewController *)animationDelegate resolveOptions];
+	CATransition* transition = [CATransition animation];
+	if(options.animations.push.animationDirection.hasValue) {
+		transition.type = kCATransitionMoveIn;
+		transition.duration = 0.33;
+		transition.subtype = kCATransitionFromLeft;
+		if([options.animations.push.animationDirection.get isEqualToString:@"right"]) {
+			transition.subtype = kCATransitionFromRight;
+		}
+		transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault];
+	}
 	[self performAnimationBlock:^{
+		if(options.animations.push.animationDirection.hasValue) {
+			[nvc.view.layer addAnimation:transition forKey:kCATransition];
+		}
+
 		[nvc pushViewController:newTop animated:animated];
 	} completion:completion];
 }
@@ -32,7 +47,7 @@ typedef void (^RNNAnimationBlock)(void);
 	if (!viewController.view.window) {
 		animated = NO;
 	}
-	
+
 	__block UIViewController *poppedVC = nil;
 	[self performAnimationBlock:^{
 		poppedVC = [viewController.navigationController popViewControllerAnimated:animated];
